@@ -10,25 +10,7 @@ namespace BO {
     {
         const char* getName() const;
 
-        void moveRight()
-        {
 
-        }
-
-        void moveLeft()
-        {
-
-        }
-
-        void shoot()
-        {
-
-        }
-
-        void gotHit()
-        {
-
-        }
     };
 
 }

@@ -7,15 +7,10 @@ namespace BO {
 
     class Asteroids
     {
-    private:
-        void fall()
-        {
+        public:
+        void spawn();
 
-        }
-        void gotHit()
-        {
 
-        }
 
     };
 

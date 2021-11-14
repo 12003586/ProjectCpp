@@ -2,6 +2,10 @@
 #define PLAYER_H
 
 #include <string>
+#include <QEvent>
+#include <QObject>
+
+
 
 
 class Game;
@@ -13,6 +17,11 @@ public:
     virtual const char* getName(void) const         = 0;
     bool isDead(void) const                         {return (lives ==0);}
     unsigned int getHits() const                    {return hits;}
+    void moveRight();
+    void moveLeft();
+    void gotHit();
+
+
 protected:
     const Game* getGame(void) const                 {return(game);}
 
