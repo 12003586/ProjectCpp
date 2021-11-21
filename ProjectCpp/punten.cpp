@@ -10,4 +10,5 @@ punten::punten(QGraphicsItem* parent) : QGRaphicsTextItem(parent)
 void punten::verhoogScore()
 {
     //min 10:18 verdergaan
+    emit verhoogScore();
 }
