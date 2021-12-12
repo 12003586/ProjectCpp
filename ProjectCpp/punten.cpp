@@ -7,6 +7,16 @@ punten::punten(QGraphicsItem* parent) : QGRaphicsTextItem(parent)
     setFont(QFont("times",24));
 }
 
+int punten::getScore()
+{
+    return score;
+}
+
+int punten::getHealth() const
+{
+    return health;
+}
+
 void punten::verhoogScore()
 {
     //min 10:18 verdergaan
@@ -20,10 +30,6 @@ void punten::verlaagScore()
     setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
 }
 
-int punten::getHealth() const
-{
-    return health;
-}
 
 void punten::verlaagHealth()
 {
@@ -31,10 +37,6 @@ void punten::verlaagHealth()
     setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
 }
 
-int punten::getScore()
-{
-    return score;
-}
 
 void punten::reset()
 {
