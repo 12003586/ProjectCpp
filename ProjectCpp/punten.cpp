@@ -44,3 +44,10 @@ void punten::reset()
     health = maxHealth;
     setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
 }
+
+void punten::verhoogHealth()
+{
+    health ++;
+    setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
+}
+}
