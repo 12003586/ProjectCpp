@@ -1,99 +1,117 @@
 #include "spaceinvaders.h"
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include <QtWidgets/QGraphicsItem>
 #include "game.h"
 #include <qtimer.h>
 #include <QTimer>
-
-spaceInvaders::spaceInvaders(QSize ScreenSize, QWidget *Parent)
-{
-    QGraphicsScene* Scene = new QGraphicsScene();
-    setScene(Scene);
-
-    Scene->setSceneRect(0,0,ScreenSize.width(), ScreenSize.height() );
-
-    Scene->setBackgroundBrush(QBrush(QImage(":/Recources/Achtergrond.jpg")));
-
-}
-
-void spaceInvaders::Run()
-{
-    scene()->clear();
-
-    Kanon = new kanon();
-    Kanon->setPos(ScreenSize.width()/2, ScreenSize.height() - kanonGrootte.heigth());
-    Kanon->setFlag(QGraphicsItem::ItemIsFocusable);
-    Kanon->setFocus();
-
-    connect(Kanon, &kanon::verhoogScore, this, &spaceInvaders::onVerhoogScore);
-    connect(Kanon, &kanon::verlaagScore, this, &spaceInvaders::onVerlaagScore);
-
-    Punten = new punten();
-    scene()->addItem(Punten);
-
-    QTimer* Timer = new QTimer(this);
-    connect(Timer,&QTimer::timeout, this, &spaceInvaders::onCreatEnemy);
+#include <QSize>
+#include <enemy.h>
+#include <kanon.h>
+#include <punten.h>
+#include <QObject>
 
 
-}
+namespace BO {
 
-void spaceInvaders::checkPoints()
-{
-    if((Punten->getScore() <0) || (Punten->getHealth() <= 0))
+    spaceInvaders::spaceInvaders(QSize ScreenSize, QWidget *Parent)
     {
-        Punten->reset();
-        onGameOver();
-    }
-}
+        QGraphicsScene* pScene = new QGraphicsScene();
+        setScene(pScene);
 
-void spaceInvaders::keyPressEvent(QEvent *Event)
-{
-    if(Kanon == nullptr)
-        return;
-    switch (Event->key())
+        pScene->setSceneRect(0,0,ScreenSize.width(), ScreenSize.height() );
+
+        pScene->setBackgroundBrush(QBrush(QImage(":/Recources/Achtergrond.jpg")));
+
+    }
+
+    void spaceInvaders::Run()
     {
-        case Qt::Key_Left:
-            if(Kanon->pos().X()>0)
-                Kanon->setPos(Kanon->x() -20, Kanon->y());
-            break;
-        case Qt::Key_Right:
-            if((Kanon->pos().x() + kanonGrootte.width()) < ScreenSize.width())
-                Kanon->setPos(Kanon->x() -20,Kanon->y());
-            break;
-        case Qt::Key_Space:
-            Kanon->Shoot();
-            break;
+        scene()->clear();
+
+        kanon = new Kanon(kleur::Rood);
+        kanon->setPos(ScreenSize.width()/2, ScreenSize.height() - kanonGrootte.heigth());
+        scene()->addItem(kanon);
+
+        connect(kanon, &Kanon::verhoogScore, this, &spaceInvaders::onVerhoogScore);
+        connect(kanon, &Kanon::verlaagScore, this, &spaceInvaders::onVerlaagScore);
+
+        punten = new Punten();
+        scene()->addItem(punten);
+
+        QTimer* Timer = new QTimer(this);
+        connect(Timer,&QTimer::timeout, this, &spaceInvaders::onCreatEnemy);
+        Timer->start(2000);
+
+
     }
-}
 
-void spaceInvaders::onCreatEnemy()
-{
-    int pos = 100+(rand()%ScreenSize.width() -100);
-    Alien* alien = new Alien();
+    void spaceInvaders::checkPoints()
+    {
+        if((punten->getScore() <0) || (punten->getHealth() <= 0))
+        {
+            punten->reset();
+            onGameOver();
+        }
+    }
 
-    connect(alien, &Alien::GameOver, this, &spaceInvaders::onGameOver);
-    connect(alien, &Alien::verlaagHealth, this, &spaceInvaders::onVerlaagHealth);
-}
+    void spaceInvaders::keyPressEvent(QEvent *Event)
+    {
+        if(kanon == nullptr)
+            return;
+        switch (Event->Key())
+        {
+            case Qt::Key_Left:
+                if(kanon->pos().x()>0)
+                    kanon->setPos(kanon->x() -20, kanon->y());
+                break;
+            case Qt::Key_Right:
+                if((kanon->pos().x() + kanonGrootte.width()) < ScreenSize.width())
+                    kanon->setPos(kanon->x() + 20,kanon->y());
+                break;
+            case Qt::Key_Space:
+                kanon->Shoot();
+                break;
+        }
+    }
 
-void spaceInvaders::onVerhoogScore()
-{
-    Punten->verhoogScore();
-    checkPoints();
-}
+    void spaceInvaders::onCreatEnemy()
+    {
+        int pos = 100+(rand()%ScreenSize.width() -100);
+        int enemyKleur = rand() % 3;
 
-void spaceInvaders::onVerlaagScore()
-{
-    Punten->verlaagScore();
-    checkPoints();
-}
+        Enemy* enemy = new Enemy(static_cast<Kleur>(enemyKleur));
+        enemy->setPos(pos, 0);
+        scene()->addItem(enemy);
 
-void spaceInvaders::onVerlaagHealth()
-{
-    Punten->verlaagHealth();
-    checkPoints();
-}
 
-void spaceInvaders::onGameOver()
-{
-    close();
+        connect(enemy, &Enemy::gameOver, this, &spaceInvaders::onGameOver);
+        connect(enemy, &Enemy::verlaagHealth, this, &spaceInvaders::onVerlaagHealth);
+    }
+
+    void spaceInvaders::onVerhoogScore()
+    {
+        punten->verhoogScore();
+        checkPoints();
+    }
+
+    void spaceInvaders::onVerlaagScore()
+    {
+        punten->verlaagScore();
+        checkPoints();
+    }
+
+    void spaceInvaders::onVerlaagHealth()
+    {
+        punten->verlaagHealth();
+        checkPoints();
+    }
+
+    void spaceInvaders::onGameOver()
+    {
+        close();
+    }
+
+
 }

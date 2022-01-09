@@ -27,3 +27,6 @@ HEADERS += \
     kogel.h \
     punten.h \
     spaceinvaders.h
+
+RESOURCES += \
+    afbeeldingen.qrc

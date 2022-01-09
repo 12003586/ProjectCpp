@@ -7,30 +7,34 @@
 #include "punten.h"
 #include <QtWidgets/QGraphicsView>
 
-class spaceInvaders
-{
-public:
-    spaceInvaders(QSize ScreenSize, QWidget* Parent = nullptr);
+namespace BO {
 
-    void Run();
-    void checkPoints();
+    class spaceInvaders
+    {
+    public:
+        spaceInvaders(QSize ScreenSize, QWidget* Parent = nullptr);
 
-protected:
-    void keyPressEvent(QEvent* Event);
-    void setScene(QGraphicsScene *scene);
+        void Run();
+        void checkPoints();
 
-public slots:
-    void onCreatEnemy();
-    void onVerhoogScore();
-    void onVerlaagScore();
-    void onVerlaagHealth();
-    void onGameOver();
+    protected:
+        virtual void keyPressEvent(QEvent* Event) override;
+        void setScene(QGraphicsScene *scene);
+
+    public slots:
+        void onCreatEnemy();
+        void onVerhoogScore();
+        void onVerlaagScore();
+        void onVerlaagHealth();
+        void onGameOver();
 
 
-private:
-    kanon*  Kanon = nullptr;
-    punten* Punten = nullptr;
-    QSize   ScreenSize;
-};
+    private:
+        Kanon*  kanon = nullptr;
+        Punten* punten = nullptr;
+        QSize   ScreenSize;
+    };
+
+}
 
 #endif // SPACEINVADERS_H

@@ -1,13 +1,19 @@
 #include "spaceinvaders.h"
 #include <QScreen>
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc,argv);
+#include <QtWidgets/QApplication>
 
-    spaceInvaders* Game = new spaceInvaders(qApp->screens()[0]->size());
+namespace BO {
 
-    Game->Run();
+    int main(int argc, char *argv[])
+    {
+        QApplication a(argc,argv);
 
-    return a.exec();
+        spaceInvaders* Game = new spaceInvaders(qApp->screens()[0]->size());
+
+        Game->Run();
+
+        return a.exec();
+    }
+
 }

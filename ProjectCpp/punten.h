@@ -3,23 +3,28 @@
 
 #include <game.h>
 
-class punten
-{
-    public :
-        void verhoogScore();
-        void verlaagScore();
-        void verlaagHealth();
+namespace BO {
 
-        int getHealth()const;
-        int getScore() const;
+    class Punten : public QObject, public QGraphicsItem
+    {
+        public :
+            Punten(QGraphicsItem* Parent = nullptr);
+            void verhoogScore();
+            void verlaagScore();
+            void verlaagHealth();
 
-        void reset();
+            int getHealth()const;
+            int getScore() const;
 
-    private:
-        int health = maxHealth;
-        int score = 0;
+            void reset();
+
+        private:
+            int health = maxHealth;
+            int score = 0;
 
 
-};
+    };
+
+}
 
 #endif // PUNTEN_H
