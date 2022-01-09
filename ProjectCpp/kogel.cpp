@@ -1,5 +1,6 @@
 #include <kogel.h>
 #include <enemy.h>
+#include <QtWidgets/QGraphicsView>
 
 void kogel::onMove()
 {

@@ -1,5 +1,8 @@
 #include <enemy.h>
 #include <game.h>
+#include "kanon.h"
+#include <QtWidgets/QGraphicsView>
+
 
 void enemy::onMove()
 {

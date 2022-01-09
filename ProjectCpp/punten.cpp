@@ -1,6 +1,7 @@
 #include <punten.h>
+#include <QtWidgets/QGraphicsView>
 
-punten::punten(QGraphicsItem* parent) : QGRaphicsTextItem(parent)
+punten::Punten(QGraphicsItem* parent) : QGraphicsTextItem(parent)
 {
     setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
     setDefaultTextColor(Qt::red);
@@ -19,22 +20,22 @@ int punten::getHealth() const
 
 void punten::verhoogScore()
 {
-    //min 10:18 verdergaan
+
     score += 50;
-    setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
+    setPlainText(QString("Healt: ") + QString::number(health) + "\n" + QString("Score: ")+ QString::number(score));
 }
 
 void punten::verlaagScore()
 {
     score -=50;
-    setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
+    setPlainText(QString("Healt: ") + QString::number(health) + "\n" + QString("Score: ")+ QString::number(score));
 }
 
 
 void punten::verlaagHealth()
 {
     health --;
-    setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
+    setPlainText(QString("Healt: ") + QString::number(health) + "\n" + QString("Score: ")+ QString::number(score));
 }
 
 
@@ -42,12 +43,7 @@ void punten::reset()
 {
     score = 0;
     health = maxHealth;
-    setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
+    setPlainText(QString("Healt: ") + QString::number(health) + "\n" + QString("Score: ")+ QString::number(score));
 }
 
-void punten::verhoogHealth()
-{
-    health ++;
-    setPlainText(QString("Healt: ") + QString::number(health) + \n + QString("Score: ")+ QString::number(score));
-}
-}
+

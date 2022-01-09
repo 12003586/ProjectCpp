@@ -4,6 +4,7 @@
 #include <game.h>
 
 
+
 class enemy: public QObject
 {
     Q_OBJECT
@@ -12,6 +13,7 @@ signals:
     void gameOver();
 public slots:
     void onMove();
+
 
 
 };

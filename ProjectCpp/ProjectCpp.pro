@@ -12,8 +12,8 @@ SOURCES += \
         kanon.cpp \
         kogel.cpp \
         main.cpp \
-        player.cpp \
-        punten.cpp
+        punten.cpp \
+        spaceinvaders.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -25,6 +25,5 @@ HEADERS += \
     game.h \
     kanon.h \
     kogel.h \
-    player.h \
     punten.h \
-    spaceship.h
+    spaceinvaders.h
